@@ -1,0 +1,65 @@
+generated: '2026-07-19'
+method: searched
+source: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html
+docs: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html
+note: >-
+  Derived from published documentation rather than an OpenAPI securitySchemes block -
+  Lemonflow publishes no OpenAPI definition. There is no OAuth authorization server,
+  no OIDC discovery document and no token endpoint on any Lemonflow host, so no
+  scopes/ artifact is emitted.
+schemes:
+- id: widget-public-key
+  type: apiKey
+  surface: Lemonflow Chat Widget
+  credentials:
+  - name: company
+    in: element-attribute
+    alias_in_iframe: company
+    required: true
+    description: Unique company identifier issued by Lemonflow during onboarding.
+  - name: public-key
+    in: element-attribute
+    alias_in_iframe: public_key
+    required: true
+    example_prefix: pk_
+    description: >-
+      Public API key used to authenticate the embed. Documented explicitly as a
+      configuration selector, not a secret - Lemonflow states it is safe to place in a
+      URL. The matching private key remains server-side at Lemonflow and is never
+      exposed to the host page or its users.
+  issuance: Credentials are provisioned by Lemonflow per organisation; there is no
+    self-service key console documented.
+  rotation: Not documented.
+- id: host-origin-allowlist
+  type: origin-allowlist
+  surface: chat.lemonflow.ai/embed
+  description: >-
+    Complementary embed control rather than a credential. Partners supply the host
+    origins permitted to frame the chat; Lemonflow configures allowed_origins and the
+    chat service then emits a Content-Security-Policy frame-ancestors header. By
+    default any site may iframe the chat, so this is opt-in hardening.
+  example: 'allowed_origins: ["https://www.example.com", "https://app.example.com"]'
+end_user_identity:
+  parameter: user-ref (user_ref on the iframe)
+  required: false
+  model: >-
+    Conversations are anonymous by default; the widget makes no attempt to identify the
+    visitor. The host application - the only party that knows who the user is - may
+    pass a stable, opaque identifier (hashed email or internal account ID) so that
+    per-user limits on assistant actions apply. Lemonflow configures which actions are
+    capped, the allowance and the period.
+partner_side_authentication:
+  note: >-
+    Applies to the partner CPMS endpoints Lemonflow consumes, not to Lemonflow's own
+    surface.
+  supported:
+  - oauth2
+  - api-key
+  - custom-header
+  bearer_examples_in_docs: 'Authorization: Bearer {token}'
+  stance: Lemonflow states it supports whatever the partner already uses.
+gaps:
+- No /.well-known/openid-configuration or /.well-known/oauth-authorization-server on
+  any probed host (all 404).
+- No documented key rotation or revocation procedure.
+- No documented public REST API requiring server-to-server credentials.
