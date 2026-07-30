@@ -1,0 +1,179 @@
+generated: '2026-07-19'
+method: searched
+source: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/integration-requirements.html
+docs: https://lemonflow-ai.github.io/lemonflow-docs/
+note: >-
+  This is Lemonflow's inbound integration surface: the endpoints a partner CPMS is
+  asked to expose so Lemonflow's agents can read station data and act on chargers.
+  These describe the partner's API, not Lemonflow's. Lemonflow states it has integrated
+  REST, GraphQL and custom APIs across 15+ CPMS providers and adapts to the partner's
+  existing shape - the endpoint paths below are documented as a reference, not a
+  specification.
+access:
+  portal: https://lemonflow-ai.github.io/lemonflow-docs/
+  gating: >-
+    Guides are StatiCrypt password-encrypted at build time into two tiers - "Tech" for
+    technical integration partners and "Operations" for callcenter and operations
+    teams. Credentials are requested from tech@lemonflow.ai. The unencrypted sources
+    are public in the lemonflow-ai/lemonflow-docs GitHub repository.
+  contact: tech@lemonflow.ai
+required_endpoints:
+- id: bulk-station-information
+  name: Bulk Station Information
+  requirement: required
+  method: GET
+  example_path: /api/charging-stations
+  purpose: Initial data import and periodic full synchronisation (about once per day).
+  requirements:
+  - Pagination required for datasets of 100+ stations
+  - 'Unique IDs required: location, station, connector, EVSE ID'
+  recommended_fields:
+  - connector type (Type 2, CCS, ...)
+  - maximum power (kW)
+  - voltage and amperage (optional)
+  - GPS coordinates (latitude, longitude)
+  - street address, city, postal code, 2-letter ISO country code
+  - manufacturer and model
+  - serial number, firmware version
+  - pricing / tariff information
+- id: station-status
+  name: Single Station or Connector Status
+  requirement: required
+  method: GET or POST
+  example_path: /api/v1/charging-stations/{station_id}
+  purpose: Real-time status updates during active charging sessions and support calls.
+  requirements:
+  - 'Status values required (e.g. AVAILABLE, CHARGING)'
+  - Must respond in under 2 seconds
+  - Rate limit above 1000 requests per minute
+  - Ideally the same data structure as the bulk endpoint
+  optional:
+  - Batch support for multiple stations (e.g. comma-separated station IDs)
+- id: ocpp-logs
+  name: OCPP Log Endpoint
+  requirement: recommended
+  method: GET
+  example_path: /api/v1/stations/{station_id}/ocpp-logs
+  purpose: Detailed charging session analytics and diagnostics.
+  requirements:
+  - Pagination or very large page sizes (about 5k entries per charger per day)
+  - Array of OCPP message logs with timestamps
+  - OCPP 1.6 or 2.0.1
+  recommended:
+  - Time-range filtering (from/to, unix or ISO)
+  - Max-logs filtering as an alternative to time range
+  deep_dive: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/ocpp-logs.html
+- id: remote-actions
+  name: Remote Actions Endpoint
+  requirement: required
+  method: POST
+  purpose: Charger control during support calls.
+  actions:
+  - name: Reset (hard)
+    example_path: /api/v1/chargers/{id}/reset
+    id_level: station
+    body_example: '{"resetType": "HARD"}'
+    note: Most providers expose only hard reset; soft reset is a nice-to-have.
+  - name: Stop transaction
+    example_path: /api/v1/connectors/{id}/stop
+    alternative_path: /api/v1/sessions/{id}/stop
+    id_level: connector (preferred) or session
+    note: >-
+      Session-level requires an additional active-sessions endpoint
+      (/api/v1/connectors/{id}/active-session). About half of providers support
+      connector-level stop natively.
+  - name: Unlock connector
+    example_path: /api/v1/connectors/{id}/unlock
+    id_level: connector
+  - name: Remote start
+    example_path: /api/v1/connectors/{id}/start
+    id_level: connector
+    requirement: optional
+  requirements:
+  - Synchronous accept/reject confirmation within about 5 seconds (acceptance by the
+    CPMS, not charger completion)
+  - Human-readable rejection reasons (e.g. "charger offline", "no active session")
+  - 'Response envelope: {"status": "accepted"|"rejected"|"failed", "message": "..."}'
+  coverage_note: About 80% of integrated providers support all three core actions.
+  custom_actions: >-
+    Non-OCPP actions (e.g. opening a station barrier) are integrated the same way as
+    long as they follow a similar request/response pattern.
+  deep_dive: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/remote-actions.html
+- id: ticketing
+  name: Ticketing Endpoint
+  requirement: recommended
+  method: POST
+  purpose: Support ticket creation from agent conversations.
+  requirements:
+  - Customer-defined fields (e.g. description, severity, charger_id, evse_id,
+    phone_number)
+  - Success/failure response including ticket ID or number
+channel_integrations:
+- id: chat-widget
+  name: Chat Widget
+  status: available
+  artifact: components/lemonflow-ai-components.yml
+- id: voice-inbound-sip
+  name: Voice Inbound - SIP Trunking
+  status: available
+  description: Routing inbound calls to Lemonflow over SIP - SIP domain, authentication,
+    firewall rules and telco requirements.
+- id: voice-outbound-sip
+  name: Voice Outbound - SIP Transfer & UUI
+  status: available
+  description: Transferring calls to the partner callcenter over SIP, with UUI headers
+    for agent screen-pop.
+- id: call-transfer-flow
+  name: Call Transfer Flow
+  status: available
+  access: Operations
+  description: >-
+    End-to-end handover from AI agent to callcenter - hold music, agent whisper
+    summary, "press 1 to hear the summary", conference bridge.
+- id: bring-your-own-twilio
+  name: Bring Your Own Twilio Number
+  status: available
+  description: Connecting a phone number from the partner's own Twilio account -
+    subaccount setup, webhook configuration and secure credential exchange.
+- id: whatsapp
+  name: Chat WhatsApp
+  status: announced
+- id: email
+  name: Email
+  status: announced
+- id: station-information-api
+  name: Station Information API Guide
+  status: announced
+- id: ocpi
+  name: OCPI Integration
+  status: announced
+  description: Locations, Sessions, Commands and CDRs modules as an alternative to
+    custom endpoints.
+- id: crm
+  name: CRM Integration
+  status: announced
+  targets: [Salesforce, HubSpot, custom]
+- id: ticketing-systems
+  name: Ticketing System Integration
+  status: announced
+  targets: [Zendesk, Salesforce, Jira, Freshdesk, custom]
+named_platform_partners:
+  note: >-
+    Logos displayed on lemonflow.ai as customers or ecosystem partners in EV charging.
+  partners:
+  - agrigocharge
+  - ampeco
+  - chargecloud
+  - chargepoint
+  - citywatt
+  - ckw
+  - driivz
+  - eaaze
+  - evesto
+  - iecharge
+  - mer
+  - milence
+  - moon
+  - powerdot
+  - solidstudio
+  - wirelane

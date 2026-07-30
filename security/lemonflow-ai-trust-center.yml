@@ -1,0 +1,35 @@
+generated: '2026-07-19'
+method: searched
+probe: true
+source: https://trust.lemonflow.ai/
+url: https://trust.lemonflow.ai/
+platform: Vanta Trust Center
+certifications:
+- name: ISO/IEC 27001
+  claim: aligned
+- name: SOC 2 Type II
+  claim: aligned
+claim_verbatim: >-
+  Lemonflow is built on the principle that EV charging operators - and the drivers
+  behind every session - deserve infrastructure they can rely on. Not just for uptime,
+  but for how their data is handled. Our platform is EU-hosted on Google Cloud,
+  encrypted end to end, and governed by an ISO/IEC 27001 and SOC 2 Type II-aligned
+  framework. Use this Trust Center to review our certifications, security posture, and
+  policy index.
+posture:
+  hosting: EU-hosted on Google Cloud
+  encryption: end to end
+  policy_index: published via the Trust Center
+caveat: >-
+  The published wording is "ISO/IEC 27001 and SOC 2 Type II-aligned", which asserts
+  framework alignment rather than a completed certification or attestation. No
+  certificate number, auditor or report date was visible on the public surface; the
+  Trust Center content renders client-side and documents are typically gated behind an
+  access request. Recorded as claimed alignment.
+evidence:
+- source: https://trust.lemonflow.ai/
+  keywords:
+  - soc 2 type ii
+  - iso/iec 27001
+  - trust center
+  - eu-hosted

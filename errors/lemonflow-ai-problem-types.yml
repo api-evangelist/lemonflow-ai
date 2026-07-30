@@ -1,0 +1,74 @@
+generated: '2026-07-19'
+method: searched
+source: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/remote-actions.html
+docs: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/remote-actions.html
+format: custom
+rfc9457: false
+note: >-
+  Lemonflow does not publish an RFC 9457 application/problem+json error catalog. Two
+  real error surfaces are documented and captured here: the browser-side chat:error
+  event emitted by the widget, and the status/message envelope plus HTTP status
+  semantics Lemonflow asks partner CPMS remote-action endpoints to return. The latter
+  describes the partner's API contract, not Lemonflow's.
+client_error_events:
+  surface: Lemonflow Chat Widget (window.postMessage)
+  envelope: '{ event: "chat:error", error: "<description>" }'
+  types:
+  - id: chat:error
+    title: Widget error
+    description: A critical error occurred inside the chat widget. The error payload is
+      a free-text description; no enumerated code list is published.
+    remediation: Surface or log the description; the widget renders system messages
+      inline for inactivity timeouts and errors.
+  - id: chat:ended
+    title: Conversation ended
+    description: >-
+      Not an error, but carries a reason field explaining termination (timeout, end
+      button, completion). Useful for distinguishing clean endings from failures.
+partner_endpoint_errors:
+  surface: partner-implemented CPMS remote-action endpoints
+  envelope: '{ "status": "accepted" | "rejected" | "failed", "message": "<human readable>" }'
+  guidance: >-
+    Lemonflow asks for human-readable rejection reasons rather than opaque codes,
+    because the message is relayed to the driver during a live voice or chat
+    conversation.
+  types:
+  - status: 200
+    id: accepted
+    title: Command accepted by CPMS
+    example_message: Reset command sent to charger
+    meaning: The CPMS accepted the command. Confirmation that the charger completed
+      the action is not required.
+  - status: 400
+    id: rejected
+    title: Command rejected (invalid request)
+    example_message: No active session on this connector
+    remediation: Validate the identifier level (station vs connector vs session) before
+      issuing the command.
+  - status: 404
+    id: not_found
+    title: Charger or connector not found
+    example_message: Charger STATION-1902 not found
+    remediation: Check identifier mapping between Lemonflow's imported station data and
+      the CPMS.
+  - status: 409
+    id: conflict
+    title: Conflict - charger unreachable
+    example_message: Charger is offline - command cannot be delivered
+    remediation: Relay charger-offline state to the driver; retry is unlikely to help
+      until the charger reconnects.
+  - status: 429
+    id: rate_limited
+    title: Rate limit exceeded
+    remediation: Return a Retry-After header. Lemonflow asks status endpoints to
+      sustain more than 1000 requests per minute.
+  - status: 500
+    id: server_error
+    title: Server error
+    example_message: Internal error - please retry
+    remediation: Retry; Lemonflow treats this as transient.
+gaps:
+- No enumerated error-code registry for the widget itself.
+- No application/problem+json media type in use.
+- No decline-code style catalog (Lemonflow is not a payments or authorization provider),
+  so errors/lemonflow-ai-decline-codes.yml is intentionally not emitted.

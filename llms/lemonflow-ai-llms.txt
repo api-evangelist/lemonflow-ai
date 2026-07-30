@@ -1,0 +1,55 @@
+# Lemonflow
+
+> AI-powered customer support and operations platform for electric vehicle charging infrastructure.
+
+Lemonflow Technologies GmbH builds AI agents that handle voice, chat, and email support for EV charging operators (CPOs) across Europe. The platform provides 24/7 multilingual customer support in 30+ languages, proactive operations monitoring, and CPMS integration — purpose-built for the EV charging industry.
+
+## What Lemonflow Does
+
+- **AI Voice Agents**: Automated phone support for EV charging customers, handling issues like failed charging sessions, payment problems, and charger troubleshooting. Available 24/7 in 30+ languages.
+- **AI Chat Agents**: Real-time chat support embedded in CPO websites and driver apps, resolving charging issues through natural conversation.
+- **AI Email Support**: Automated email response and ticket handling for charging support teams.
+- **Operations Hub**: Real-time analytics dashboard, OCPP log interpretation, proactive charger monitoring, and automated issue detection.
+- **CPMS Integration**: Native integrations with charge point management systems for remote actions like charger resets, cable unlocks, and session management via OCPP.
+
+## Key Facts
+
+- **Founded**: 2025 in Munich, Germany
+- **Industry**: Electric vehicle charging / eMobility
+- **Customers**: 20+ charge point operators (CPOs) across Europe
+- **Scale**: 100,000+ charge points on the platform
+- **Languages**: 30+ languages supported
+- **Performance**: 30%+ reduction in support costs, 100% response rate, 95% customer satisfaction
+
+## Products
+
+1. **Agent Platform** — Configurable AI agents for voice, chat, and email across all customer touchpoints, including embeddable chat widgets for CPO driver apps
+2. **Operations Hub** — Real-time monitoring, OCPP intelligence, analytics, and proactive alerts
+
+## Target Customers
+
+- Charge point operators (CPOs)
+- eMobility service providers (eMSPs)
+- EV charging software backend providers
+- Charging hardware manufacturers
+
+## Founders
+
+Lemonflow was co-founded by **Konstantin Huneke** and **Dr. Lukas Fieber** in Munich, Germany.
+
+## Implementation
+
+Lemonflow offers a structured onboarding process designed for fast go-live:
+
+1. **Onboarding** — Kickoff workshop to understand the CPO's support workflows and charging infrastructure
+2. **Agent Customization** — AI agents are tailored to the CPO's brand, processes, FAQ, and CPMS setup
+3. **Integration** — Native integrations with the CPO's charge point management system and support tools
+4. **Testing** — Meticulous quality assurance before going live with real customers
+5. **Continuous Improvement** — Ongoing optimization through call reviews, prompt tuning, and regular updates
+
+## Contact
+
+- Website: https://lemonflow.ai
+- Email: info@lemonflow.ai
+- LinkedIn: https://www.linkedin.com/company/lemonflow
+- Location: Kreittmayrstrasse 3, 80335 Munich, Germany

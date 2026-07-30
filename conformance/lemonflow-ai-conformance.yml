@@ -1,0 +1,89 @@
+generated: '2026-07-19'
+method: searched
+source: https://trust.lemonflow.ai
+docs:
+- https://trust.lemonflow.ai
+- https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html
+- https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/ocpp-logs.html
+standards:
+- id: iso-27001
+  name: ISO/IEC 27001
+  conforms: false
+  claim: aligned
+  evidence: >-
+    The Trust Center states the platform is "governed by an ISO/IEC 27001 and SOC 2
+    Type II-aligned framework". Recorded as alignment, not certification - no
+    certificate number or audit report date was published on the public Trust Center
+    surface.
+  source: https://trust.lemonflow.ai
+- id: soc2-type-ii
+  name: SOC 2 Type II
+  conforms: false
+  claim: aligned
+  evidence: >-
+    Same Trust Center statement. Alignment claimed; no attestation report or auditor
+    named publicly.
+  source: https://trust.lemonflow.ai
+- id: gdpr
+  name: GDPR / EU data residency
+  conforms: true
+  evidence: >-
+    Trust Center states the platform is EU-hosted on Google Cloud and encrypted end to
+    end. Lemonflow Technologies GmbH is a German entity (HRB 300576, Amtsgericht
+    Munchen) publishing an imprint and privacy policy under EU law.
+  source: https://lemonflow.ai/privacy
+- id: ocpp
+  name: Open Charge Point Protocol
+  conforms: true
+  versions: ['1.6', 2.0.1]
+  evidence: >-
+    Integration requirements document OCPP log ingestion for OCPP 1.6 and 2.0.1, and
+    remote actions mapped to standard OCPP operations (reset, stop transaction, unlock
+    connector, remote start).
+  source: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/ocpp-logs.html
+- id: ocpi
+  name: Open Charge Point Interface
+  conforms: false
+  status: announced
+  evidence: >-
+    The documentation index lists an "OCPI Integration" guide covering the Locations,
+    Sessions, Commands and CDRs modules as an alternative to custom endpoints, marked
+    "Coming soon". Not yet available.
+  source: https://lemonflow-ai.github.io/lemonflow-docs/
+- id: wcag-2.1-aa
+  name: WCAG 2.1 Level AA
+  conforms: true
+  evidence: >-
+    The chat widget guide states the widget is designed to comply with WCAG 2.1 Level
+    AA and documents keyboard navigation, ARIA labels and roles, focus management,
+    alternative text, live regions and high-contrast adaptation.
+  source: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html
+- id: rfc9457
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: No application/problem+json usage documented; errors use a status/message
+    envelope.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: >-
+    Lemonflow supports OAuth2 when consuming a partner's CPMS API, but exposes no
+    authorization server of its own. No /.well-known/oauth-authorization-server or
+    /.well-known/openid-configuration on any probed host.
+- id: rfc9116
+  name: RFC 9116 security.txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on lemonflow.ai.
+- id: aipref-content-signals
+  name: Content Signals / crawler preferences
+  conforms: true
+  evidence: >-
+    robots.txt publishes "Content-Signal: search=yes,ai-train=no,use=reference" with an
+    express Article 4 reservation of rights under EU Directive 2019/790, plus explicit
+    Disallow for nine AI crawler user-agents.
+  source: https://lemonflow.ai/robots.txt
+- id: llmstxt
+  name: llms.txt
+  conforms: true
+  evidence: A real /llms.txt is published at the apex host and captured verbatim in llms/.
+  source: https://lemonflow.ai/llms.txt

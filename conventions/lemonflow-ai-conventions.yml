@@ -1,0 +1,138 @@
+generated: '2026-07-19'
+method: searched
+source: https://lemonflow-ai.github.io/lemonflow-docs/
+docs: https://lemonflow-ai.github.io/lemonflow-docs/
+scope: >-
+  Lemonflow's own developer surface is browser-side, not a public REST API: an
+  embeddable chat component driven by window.postMessage. The conventions below
+  therefore split into (a) the first-party widget/messaging conventions Lemonflow
+  owns, and (b) the conventions Lemonflow asks a partner CPMS to follow on the
+  endpoints it will consume. The distinction matters - (b) describes the partner's
+  API, not Lemonflow's.
+authentication:
+  style: company identifier + public key
+  transport:
+  - Element attributes (company, public-key) on the custom element
+  - URL query parameters (company, public_key) on the /embed iframe
+  secret_handling: >-
+    The public key is explicitly documented as a configuration selector rather than a
+    secret and is safe to place in a URL. The matching private key stays server-side
+    at Lemonflow and is never exposed to the host page or its users.
+  user_identity:
+    parameter: user-ref / user_ref
+    optional: true
+    purpose: >-
+      Stable, opaque per-user grouping key supplied by the host application. Enables
+      per-user action limits (e.g. capping charger resets per day). Conversations are
+      anonymous by default.
+  see_also: authentication/lemonflow-ai-authentication.yml
+messaging:
+  style: window.postMessage
+  envelope_outbound:
+    description: Commands sent to the script-tag widget
+    shape: '{ target: "lemonflow-widget", command: "<command>", ...payload }'
+    commands:
+    - name: show
+      effect: Show the widget
+    - name: hide
+      effect: Hide the widget
+    - name: reset
+      effect: Reset the conversation
+    - name: update
+      effect: Update the agent state/context
+      payload: state
+  envelope_outbound_iframe:
+    description: Commands sent to the headless iframe via iframe.contentWindow.postMessage
+    shape: '{ event: "<command>", ...payload }'
+    commands:
+    - name: chat:close
+      effect: End the chat
+    - name: chat:reset
+      effect: Reset to initial state
+    - name: chat:sendMessage
+      effect: Submit a message as if the user typed it
+      payload: message
+    - name: chat:state_change
+      effect: Update the agent's state context
+      payload: state
+    - name: chat:getTranscript
+      effect: Request the transcript; the reply arrives as a chat:transcript event
+  envelope_inbound:
+    description: Events emitted back to the host page
+    shape: '{ event: "<name>", ...data }'
+    events:
+    - name: chat:initialized
+      data: [callId]
+    - name: chat:started
+      data: [callId, firstUserMessage]
+    - name: chat:ended
+      data: [reason]
+    - name: chat:error
+      data: [error]
+    - name: chat:resize
+      data: [height]
+    - name: chat:transcript
+      data: [transcript, callId]
+      availability: iframe
+    - name: widget:shown
+      availability: script-tag widget
+    - name: widget:hidden
+      availability: script-tag widget
+    - name: widget:reset
+      availability: script-tag widget
+    - name: widget:state_updated
+      data: [state]
+      availability: script-tag widget
+tracing:
+  correlation_id: callId
+  emitted_on: [chat:initialized, chat:started, chat:transcript]
+  description: Unique per-conversation session identifier returned to the host page.
+versioning:
+  agent: >-
+    Named agent versions are selected per embed via the agent-version attribute
+    (agent_version on the iframe); values are configured per company (e.g. default,
+    v2, france, uk). There is no documented public versioning scheme for the widget
+    loader itself.
+  partner_api: 'Path-based v1 is the prevailing shape in the documented examples: /api/v1/...'
+  ocpp: OCPP 1.6 and OCPP 2.0.1 are the supported log formats.
+idempotency:
+  supported: false
+  evidence: >-
+    No idempotency key, retry-safety or replay-protection mechanism is documented for
+    the widget API or requested of partner endpoints. Recorded as absent - no
+    Idempotency pointer is emitted in apis.yml.
+pagination:
+  applies_to: partner-implemented endpoints Lemonflow consumes
+  requirement: >-
+    Bulk station endpoints must support pagination for datasets of 100+ stations. OCPP
+    log endpoints must support pagination or very large page sizes (roughly 5k entries
+    per charger per day). Time-range (from/to, unix or ISO) and max-logs filtering are
+    recommended alternatives.
+error_envelope:
+  applies_to: partner-implemented remote-action endpoints
+  shape: '{ "status": "accepted" | "rejected" | "failed", "message": "<human readable>" }'
+  guidance: >-
+    Lemonflow asks for a human-readable rejection reason (e.g. "charger offline", "no
+    active session") rather than opaque codes, because the message is relayed to the
+    driver during a live conversation. Standard HTTP status codes carry the rest.
+  see_also: errors/lemonflow-ai-problem-types.yml
+rate_limit_signaling:
+  applies_to: partner-implemented endpoints
+  requirement: Real-time status endpoints should sustain more than 1000 requests per minute.
+  signal: HTTP 429 with a Retry-After header is the documented rate-limit response.
+latency_expectations:
+  remote_actions: Synchronous accept/reject confirmation within roughly 5 seconds.
+  status_polling: Single station/connector status must respond in under 2 seconds.
+  note: >-
+    Remote-action endpoints need only confirm the CPMS accepted the command, not that
+    the charger completed it.
+transport_flexibility: >-
+  Lemonflow documents that it has integrated REST, GraphQL and custom APIs across 15+
+  CPMS providers and adapts to the partner's existing shape; the documented endpoint
+  structures are described as a reference, not a specification.
+cross_references:
+  authentication: authentication/lemonflow-ai-authentication.yml
+  errors: errors/lemonflow-ai-problem-types.yml
+  lifecycle: lifecycle/lemonflow-ai-lifecycle.yml
+  components: components/lemonflow-ai-components.yml
+  integrations: integrations/lemonflow-ai-integration-requirements.yml

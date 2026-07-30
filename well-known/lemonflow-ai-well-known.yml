@@ -1,0 +1,59 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of https://lemonflow.ai and https://chat.lemonflow.ai
+notes: >-
+  No /.well-known/ discovery documents are published on the primary or chat hosts.
+  trust.lemonflow.ai returns HTTP 200 for every /.well-known/ path, but that is the
+  Vanta Trust Center single-page-application catch-all serving its HTML shell, not a
+  real discovery document, so it is recorded as a false positive and no file was saved.
+  The apex host does publish a real /llms.txt (captured in llms/) and a robots.txt that
+  carries Cloudflare Content-Signal directives.
+hosts:
+- host: https://lemonflow.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 200
+    file: ../llms/lemonflow-ai-llms.txt
+  - path: /robots.txt
+    status: 200
+- host: https://chat.lemonflow.ai
+  documents:
+  - path: /widget.js
+    status: 200
+    content_type: application/javascript
+    note: widget loader script (not a well-known document; recorded as the live entry point)
+- host: https://trust.lemonflow.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    valid: false
+    note: Vanta SPA catch-all returns the trust-report HTML shell for all paths
+- host: https://status.lemonflow.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+content_signals:
+  source: https://lemonflow.ai/robots.txt
+  signal: search=yes,ai-train=no,use=reference
+  reservation: >-
+    Express reservation of rights under Article 4 of EU Directive 2019/790.
+  disallowed_agents:
+  - Amazonbot
+  - Applebot-Extended
+  - Bytespider
+  - CCBot
+  - ClaudeBot
+  - CloudflareBrowserRenderingCrawler
+  - Google-Extended
+  - GPTBot
+  - meta-externalagent

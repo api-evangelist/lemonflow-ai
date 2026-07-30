@@ -1,0 +1,161 @@
+generated: '2026-07-19'
+method: searched
+source: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html
+docs: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html
+summary: >-
+  Lemonflow's client-side surface is a single embeddable chat component, shipped two
+  ways: a `<lemonflow-chat>` custom element loaded by a script tag, and a headless
+  iframe at /embed for teams that already operate their own chat chrome. Both paths
+  use the same backend, agent and lifecycle events.
+loaders:
+- name: widget.js
+  url: https://chat.lemonflow.ai/widget.js
+  status: 200
+  content_type: application/javascript
+  install: |
+    <lemonflow-chat company="YOUR_COMPANY_ID" public-key="YOUR_PUBLIC_KEY"></lemonflow-chat>
+    <script src="https://chat.lemonflow.ai/widget.js" async></script>
+families:
+- name: Chat Widget (custom element)
+  element: lemonflow-chat
+  kind: web-component
+  description: >-
+    Full-chrome floating widget. Lemonflow provides the launcher, panel shell and
+    message stream. Configured declaratively via element attributes.
+  attributes:
+  - name: company
+    required: true
+    description: Unique company identifier issued by Lemonflow.
+  - name: public-key
+    required: true
+    description: Public API key used for authentication. Described in the docs as a
+      configuration selector, not a secret.
+  - name: position
+    default: bottom-right
+    values: [bottom-right, bottom-left]
+  - name: width
+    default: 400px
+  - name: height
+    default: 600px
+  - name: z-index
+    default: '9999'
+  - name: launcher
+    default: disabled
+    values: [enabled, disabled]
+    description: Bubble launcher mode.
+  - name: greeting
+    default: Need help?
+    description: Text displayed next to the launcher bubble.
+  - name: branding-mode
+    default: lemonflow
+    values: [lemonflow, inherit, custom]
+    description: >-
+      `inherit` samples the host page (logos, headers, CTAs) to derive primary and
+      secondary colours and match the page font family.
+  - name: brand-colors
+    description: 'JSON object with primary and secondary hex colours (6- or 8-digit),
+      used when branding-mode is custom. Example: {"primary": "#1FB270", "secondary":
+      "#0EA5E9"}'
+  - name: feedback-mode
+    default: none
+    values: [none, health, csat]
+  - name: reset
+    default: disabled
+    values: [enabled, disabled]
+  - name: full-screen-mobile
+    default: disabled
+    values: [enabled, disabled]
+  - name: agent-version
+    default: default
+    description: Selects a specific agent version configured for the company (e.g. v2,
+      france, uk).
+  - name: language
+    description: Overrides the default language (en, de, fr, es, it, nl, ...).
+  - name: state
+    description: Initial context state passed to the agent (e.g. homepage, checkout,
+      support).
+  - name: auto-show
+    default: 'true'
+  - name: charger-id-mode
+    default: disabled
+    values: [disabled, auto, manual]
+    description: Controls charger-ID extraction for EV charging contexts.
+  - name: charger-id-value
+    description: Manual charger ID when charger-id-mode is manual.
+  - name: user-ref
+    description: >-
+      Stable, opaque identifier for the signed-in user (hashed email or internal
+      account ID). Enables per-user limits on the actions the assistant may take,
+      e.g. capping charger resets per day. Optional; omit for anonymous visitors.
+- name: Chat Widget (headless iframe)
+  kind: iframe
+  url: https://chat.lemonflow.ai/embed
+  description: >-
+    Renders only the message stream and input row; the host application owns the
+    header, launcher, panel shell and any pre-handoff triage flow. Content is fully
+    fluid - the docs recommend at least 280px width and 400px height.
+  install: |
+    <iframe
+        src="https://chat.lemonflow.ai/embed?company=YOUR_COMPANY_ID&public_key=YOUR_PUBLIC_KEY&chrome=headless"
+        style="width: 100%; height: 100%; border: 0;"
+        allow="clipboard-write"
+        title="Lemonflow Chat"></iframe>
+  parameters:
+    shared_with_custom_element:
+    - company
+    - public_key
+    - agent_version
+    - language
+    - state
+    - branding
+    - brand_colors
+    - feedback
+    - charger_identifier
+    - user_ref
+    iframe_only:
+    - name: chrome
+      default: full
+      values: [full, headless]
+      description: headless hides Lemonflow's header so the wrapper provides it.
+    - name: font
+      description: CSS font-family override; must match a font the host page already loads.
+    - name: parent_url
+      description: URL of the host page, used by automatic charger-ID extraction.
+    not_applicable:
+    - position
+    - width
+    - height
+    - z-index
+    - launcher
+    - greeting
+    - auto-show
+    - full-screen-mobile
+  embedding_security:
+    mechanism: Content-Security-Policy frame-ancestors
+    configuration: >-
+      Allowed host origins are configured server-side by Lemonflow (allowed_origins);
+      the chat service then emits a frame-ancestors header so browsers block embeds
+      from unauthorised sites. By default any site can iframe the chat.
+accessibility:
+  standard: WCAG 2.1 Level AA
+  features:
+  - Keyboard navigation (Tab / Shift+Tab, Enter and Space activate)
+  - Screen reader support via ARIA labels and roles
+  - Visible focus indicators (black outline)
+  - Alternative text on icons and images
+  - Live regions announcing new messages and status changes
+  - Automatic adaptation to system high-contrast settings
+  focus_order:
+  - Reset button (if enabled)
+  - Close button
+  - Message input field
+  - Send button
+integration_patterns:
+- name: Reusable mount helper
+  description: Framework-agnostic helper that clears a container and mounts the iframe.
+- name: Cognigy custom message type
+  description: Bot flow emits a message tagged with a custom plugin type at the handoff
+    point; the wrapper listens and mounts Lemonflow.
+- name: Generic CustomEvent
+  description: Dispatch a `lemonflow:handoff` CustomEvent from the decision point;
+    the wrapper listens and mounts.

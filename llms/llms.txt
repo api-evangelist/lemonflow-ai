@@ -1,0 +1,47 @@
+# Knotel
+
+Knotel offers flexible workspaces designed to power productivity, collaboration, and business growth. Their global network of offices, work clubs, and tailored services helps businesses scale efficiently while providing amenities, design, and operational support for modern work.
+
+## Services
+
+- [Services](https://knotel.com/services): Overview of all workspace solutions and support services offered by Knotel.
+- [Amenity & Hospitality](https://knotel.com/services/amenity-hospitality): Explore amenities and hospitality offerings for office members to enhance workplace experience.
+- [Design & Delivery](https://knotel.com/services/design-delivery): Office space design, build-out, and delivery services tailored to your business needs.
+- [Sales & Marketing](https://knotel.com/services/sales-marketing): Marketing and sales solutions to help promote and manage your workspace effectively.
+- [Workplace Services](https://knotel.com/services/workplace-services): Operational support and day-to-day services to ensure smooth workplace management.
+
+## Offices
+
+- [Offices](https://knotel.com/offices): Find all Knotel office locations worldwide.
+- [Amsterdam](https://knotel.com/offices/explore?city=amsterdam): Knotel office spaces available in Amsterdam, Netherlands.
+- [Austin](https://knotel.com/offices/explore?city=austin): Flexible office solutions in Austin, Texas.
+- [Berlin](https://knotel.com/offices/explore?city=berlin): Explore modern workspaces in Berlin, Germany.
+- [London](https://knotel.com/offices/explore?city=london): Flexible office spaces in London for growing teams.
+- [Miami](https://knotel.com/offices/explore?city=miami): Discover office solutions in Miami, Florida.
+- [Paris (Deskeo)](https://www.deskeo.com/en/): Knotel's partner office spaces in Paris through Deskeo.
+
+## Work Clubs
+
+- [Work clubs](https://knotel.com/work-club): Join collaborative work clubs designed for networking and productivity.
+- [Wyncatcher](https://knotel.com/work-club/wyncatcher): Wyncatcher club spaces with shared amenities and flexible membership.
+- [Old Sessions House](https://knotel.com/work-club/old-sessions-house): Unique work club location offering collaborative workspaces.
+- [Memberships](https://knotel.com/work-club/old-sessions-house/memberships): Membership options and access plans for Knotel work clubs.
+- [Events](https://knotel.com/work-club/old-sessions-house/events): Upcoming events and networking opportunities at Knotel work clubs.
+- [Programming](https://knotel.com/work-club/old-sessions-house/programming): Educational and professional programming hosted in work club spaces.
+- [Knotel App](https://knotel.com/app): Mobile app to manage workspace access, bookings, and community engagement.
+
+## Careers
+
+- [Brokers](https://knotel.com/brokers): Partner with Knotel to provide workspace solutions to clients.
+- [Owners](https://knotel.com/owners): Information for property owners looking to lease space through Knotel.
+
+## App
+
+- [Apple Store](https://apps.apple.com/us/app/knotel/id6729657284): Download the Knotel mobile app on iOS.
+- [Google Play](https://play.google.com/store/apps/details?id=com.spacebring.knotel&hl=en_GB): Download the Knotel mobile app on Android.
+
+## Usage Guidelines
+
+- Allow-Use: output
+- Disallow-Use: training
+- User-agent: *

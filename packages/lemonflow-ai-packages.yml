@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: searched
+source: npm registry search, PyPI, GitHub org lemonflow-ai
+packages: []
+result: none
+notes: >-
+  No first-party client libraries are published. npm registry search for "lemonflow"
+  returns 0 results; PyPI /pypi/lemonflow/json returns 404. The GitHub organisation
+  lemonflow-ai has exactly one public repository (lemonflow-docs, documentation only)
+  and publishes no source SDK. Integration is delivered as a hosted browser loader
+  (https://chat.lemonflow.ai/widget.js, HTTP 200, application/javascript) rather than
+  an installable package, so no SDKs pointer is emitted in apis.yml.
+registries_checked:
+- registry: npm
+  query: lemonflow
+  result: 0 results
+- registry: pypi
+  query: lemonflow
+  result: 404
+- registry: github
+  org: lemonflow-ai
+  result: 1 public repo (docs only)

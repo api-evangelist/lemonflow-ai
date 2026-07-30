@@ -1,0 +1,118 @@
+generated: '2026-07-19'
+method: derived
+source: >-
+  lemonflow-docs integration-requirements.html, remote-actions.html, ocpp-logs.html,
+  widget-integration.html
+note: >-
+  Derived from the entity hierarchy Lemonflow documents for CPMS integration plus the
+  conversation entities its widget emits. No OpenAPI definition exists to derive
+  $ref/id-field relationships from, so this is a documentation-grounded model, not a
+  spec-derived one.
+entities:
+- name: Location
+  description: Physical site such as a parking garage or service station.
+  id_example: LOC-001
+  typical_actions: [batch queries, location-level filtering]
+  relationships:
+  - type: has_many
+    target: Station
+- name: Station
+  aliases: [Charger]
+  description: Physical charging unit - the box on the wall or pedestal.
+  id_example: STATION-1902
+  typical_actions: [reset]
+  relationships:
+  - type: belongs_to
+    target: Location
+  - type: has_many
+    target: EVSE
+- name: EVSE
+  description: Electrical supply point. One station may have 1-4 EVSEs.
+  id_example: DE*ABC*E1902*1
+  typical_actions: [status, start, stop]
+  relationships:
+  - type: belongs_to
+    target: Station
+  - type: has_many
+    target: Connector
+- name: Connector
+  description: Individual plug. Connector-level identifiers are used for unlock and
+    stop actions.
+  id_example: EVSE-8171-2
+  typical_actions: [unlock, stop, remote start]
+  attributes_requested:
+  - connector type (Type 2, CCS, ...)
+  - maximum power (kW)
+  - voltage and amperage (optional)
+  relationships:
+  - type: belongs_to
+    target: EVSE
+  - type: has_many
+    target: Session
+- name: Session
+  aliases: [Transaction]
+  description: An active or completed charging transaction.
+  id_example: TXN-90421
+  fields_observed: [sessionId, connectorId, startTime, energyDelivered]
+  relationships:
+  - type: belongs_to
+    target: Connector
+- name: OCPPLogEntry
+  description: OCPP message log record used for diagnostics and session analytics.
+  versions: ['1.6', 2.0.1]
+  volume_note: Roughly 5k entries per charger per day.
+  relationships:
+  - type: belongs_to
+    target: Station
+    via: station_id
+- name: Ticket
+  description: Support ticket created in the partner's ticketing system.
+  fields_observed: [description, severity, charger_id, evse_id, phone_number, ticket_id]
+  relationships:
+  - type: belongs_to
+    target: Conversation
+- name: Conversation
+  aliases: [Call, Chat]
+  description: A single driver interaction handled by a Lemonflow agent across voice,
+    chat or email.
+  id_field: callId
+  emitted_by: chat:initialized, chat:started, chat:transcript
+  relationships:
+  - type: has_one
+    target: Transcript
+    via: callId
+  - type: belongs_to
+    target: Company
+- name: Company
+  description: The tenant - a charge point operator or eMSP. Identified by the company
+    attribute on every embed.
+  id_field: company
+  relationships:
+  - type: has_many
+    target: AgentVersion
+  - type: has_many
+    target: Conversation
+- name: AgentVersion
+  description: A named agent configuration for a company (e.g. default, v2, france, uk),
+    selected per embed.
+  relationships:
+  - type: belongs_to
+    target: Company
+- name: EndUser
+  description: >-
+    Optional, host-supplied opaque identity used only as a grouping key for per-user
+    action limits. Conversations are anonymous unless the host passes user-ref.
+  id_field: user-ref
+  relationships:
+  - type: has_many
+    target: Conversation
+identifier_notes:
+  granularity: >-
+    Different actions operate at different levels: reset is station-level, unlock and
+    stop are connector-level. Lemonflow documents that identifier granularity need not
+    be standardised as long as it is clear which identifier each action expects.
+  observed_formats:
+  - path-based IDs (/chargers/123/reset)
+  - query parameters (?serialNumber=ABC)
+  - request-body IDs
+  - GraphQL mutations

@@ -1,0 +1,84 @@
+generated: '2026-07-19'
+method: searched
+source: https://status.lemonflow.ai
+status_page:
+  url: https://status.lemonflow.ai
+  status: 200
+  provider: incident.io
+  current_state: Fully operational (observed 2026-07-19)
+  features:
+  - Subscribe to updates
+  - Report a problem
+  - Incident history
+  components:
+  - Website
+  - Hub
+  - Customer Support Channels (3 components)
+  - Proactive Monitoring (1 component)
+  - Integrations (2 components)
+  history_window_observed: Apr 2026 - Jul 2026
+versioning:
+  agent_versions: >-
+    Named agent versions are selected per embed via agent-version / agent_version
+    (e.g. default, v2, france, uk), configured per company by Lemonflow.
+  widget_loader: >-
+    No public version scheme documented for chat.lemonflow.ai/widget.js; the loader is
+    served unversioned and rolls forward.
+  documented_api_versioning: 'Partner CPMS endpoint examples use path-based v1 (/api/v1/...).'
+deprecation_policy:
+  published: false
+  sunset_header: not documented
+  deprecation_header: not documented
+  rfc8594: false
+  evidence: >-
+    No deprecation or sunset policy is published on the documentation portal or the
+    company site. Recorded as absent - no Deprecation pointer is emitted in apis.yml.
+sla:
+  published: false
+  evidence: >-
+    No public SLA document. The marketing site claims 24/7 availability and a 100%
+    response rate, and the integration requirements ask partner endpoints to respond
+    within 2 seconds (status) and roughly 5 seconds (remote actions), but these are
+    partner-side expectations, not a Lemonflow service commitment.
+documentation_revisions:
+  note: >-
+    The documentation portal dates each guide rather than publishing a changelog. These
+    are revision dates observed on the index, not release notes.
+  guides:
+  - title: Chat Widget - Integration Guide
+    revised: '2026-07'
+    access: Tech
+  - title: Voice Inbound - SIP Trunking
+    revised: '2026-04'
+    access: Tech
+  - title: Bring Your Own Twilio Number
+    revised: '2026-07'
+    access: Tech
+  - title: Integration Requirements - Overview
+    revised: '2026-04'
+    access: Tech / Operations
+  - title: OCPP Logs - API Guide
+    revised: '2026-04'
+    access: Tech
+  - title: Remote Actions - API Guide
+    revised: '2026-04'
+    access: Tech
+  - title: Voice Outbound - SIP Transfer & UUI
+    revised: '2026-04'
+    access: Tech
+  - title: Call Transfer Flow
+    revised: '2026-04'
+    access: Operations
+announced_not_yet_available:
+- Chat WhatsApp - Integration Guide
+- Email - Integration Guide
+- Station Information - API Guide
+- OCPI Integration
+- CRM Integration
+- Ticketing System Integration
+company_milestones:
+  founded: '2025'
+  location: Munich, Germany
+  github_org_created: '2025-04-29'
+  docs_repo_created: '2025-08-27'
+  docs_repo_last_push: '2026-07-14'
