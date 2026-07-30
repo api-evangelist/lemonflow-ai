@@ -1,22 +1,131 @@
 aid: lemonflow-ai
-name: Lemonflow Ai
-description: Lemonflow Ai is a company surfaced as a portfolio company of speedinvest and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+name: Lemonflow
+description: Lemonflow Technologies GmbH is a Munich-based company building AI agents
+  purpose-built for the electric-vehicle charging industry. Its platform gives charge
+  point operators (CPOs), eMobility service providers and charging software vendors
+  24/7 AI-driven driver support across voice, chat and email in 30+ languages, plus
+  an Operations Hub for proactive network monitoring, OCPP log interpretation, anomaly
+  detection and self-healing automations such as remote charger resets. The developer-facing
+  surface is an embeddable Chat Widget - a lemonflow-chat web component (and an equivalent
+  headless iframe) loaded from chat.lemonflow.ai and driven through a postMessage
+  command/event API - together with a documented set of CPMS integration requirements
+  covering bulk station data, real-time status, OCPP logs, remote actions and ticketing.
+  Lemonflow is backed by Speedinvest.
 url: https://raw.githubusercontent.com/api-evangelist/lemonflow-ai/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://lemonflow.ai/favicons/apple-touch-icon.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - speedinvest
-x-tier: stub
-x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Artificial Intelligence
+- AI Agents
+- Customer Support
+- Electric Vehicle Charging
+- eMobility
+- OCPP
+- Chat Widget
+- Voice
+- Europe
+apis:
+- aid: lemonflow-ai:chat-widget
+  name: Lemonflow Chat Widget
+  description: Embeddable AI chat surface for EV charging driver support. Ships as
+    a lemonflow-chat custom element loaded from a single script tag, or as a headless
+    iframe at /embed for teams that already operate their own chat chrome. Both paths
+    share one backend, one agent and one set of lifecycle events. The widget is configured
+    declaratively through element attributes (or snake_case URL query parameters on
+    the iframe) and driven at runtime through a window.postMessage command/event API
+    covering show/hide/reset/state-update, message injection and transcript retrieval.
+  humanURL: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html
+  baseURL: https://chat.lemonflow.ai
+  tags:
+  - Chat Widget
+  - Web Component
+  - Embeddable
+  - postMessage
+  - Customer Support
+  properties:
+  - type: Documentation
+    url: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html
+  - type: Components
+    url: components/lemonflow-ai-components.yml
+  - type: Conventions
+    url: conventions/lemonflow-ai-conventions.yml
+  - type: Authentication
+    url: authentication/lemonflow-ai-authentication.yml
+  - type: ErrorCatalog
+    url: errors/lemonflow-ai-problem-types.yml
+common:
+- type: TrustCenter
+  url: security/lemonflow-ai-trust-center.yml
+- type: DomainSecurity
+  url: security/lemonflow-ai-domain-security.yml
+- type: DeveloperPortal
+  url: https://lemonflow-ai.github.io/lemonflow-docs/
+- type: Documentation
+  url: https://lemonflow-ai.github.io/lemonflow-docs/
+- type: APIReference
+  url: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/integration-requirements.html
+- type: GettingStarted
+  url: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html
+- type: GitHubOrganization
+  url: https://github.com/lemonflow-ai
+- type: StatusPage
+  url: https://status.lemonflow.ai
+- type: Compliance
+  url: conformance/lemonflow-ai-conformance.yml
+- type: TermsOfService
+  url: https://lemonflow.ai/terms
+- type: PrivacyPolicy
+  url: https://lemonflow.ai/privacy
+- type: Support
+  url: mailto:tech@lemonflow.ai
+- type: SignUp
+  url: https://lemonflow.ai/#request-demo
+- type: LLMsTxt
+  url: llms/lemonflow-ai-llms.txt
+- type: WellKnown
+  url: well-known/lemonflow-ai-well-known.yml
+- type: Components
+  url: components/lemonflow-ai-components.yml
+- type: Conventions
+  url: conventions/lemonflow-ai-conventions.yml
+- type: Authentication
+  url: authentication/lemonflow-ai-authentication.yml
+- type: ErrorCatalog
+  url: errors/lemonflow-ai-problem-types.yml
+- type: Conformance
+  url: conformance/lemonflow-ai-conformance.yml
+- type: Lifecycle
+  url: lifecycle/lemonflow-ai-lifecycle.yml
+- type: DataModel
+  url: data-model/lemonflow-ai-data-model.yml
+- type: Integrations
+  url: integrations/lemonflow-ai-integration-requirements.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
