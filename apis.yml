@@ -36,6 +36,17 @@ tags:
 - Company
 - Artificial Intelligence
 - AI Agents
+- Customer-Support
+- Electric Vehicle Charging
+- E-Mobility
+- OCPP
+- Chat Widget
+- Voice
+- Europe
+tags_raw:
+- Company
+- Artificial Intelligence
+- AI Agents
 - Customer Support
 - Electric Vehicle Charging
 - eMobility
@@ -56,6 +67,11 @@ apis:
   humanURL: https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html
   baseURL: https://chat.lemonflow.ai
   tags:
+  - Chat Widget
+  - Web Component
+  - Embeddable
+  - Customer-Support
+  tags_raw:
   - Chat Widget
   - Web Component
   - Embeddable
