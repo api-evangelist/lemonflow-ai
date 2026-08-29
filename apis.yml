@@ -12,6 +12,17 @@ description: Lemonflow Technologies GmbH is a Munich-based company building AI a
   covering bulk station data, real-time status, OCPP logs, remote actions and ticketing.
   Lemonflow is backed by Speedinvest.
 url: https://raw.githubusercontent.com/api-evangelist/lemonflow-ai/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
