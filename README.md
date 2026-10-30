@@ -64,48 +64,93 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Lemonflow Technologies GmbH (Munich, Germany) builds AI agents purpose-built for the
-electric-vehicle charging industry — 24/7 driver support across voice, chat and email
-in 30+ languages, plus an Operations Hub for proactive network monitoring, OCPP log
-interpretation and self-healing automations such as remote charger resets.
+Lemonflow Technologies GmbH is a Munich-based company building AI agents purpose-built for the electric-vehicle charging industry. Its platform gives charge point operators (CPOs), eMobility service providers and charging software vendors 24/7 AI-driven driver support across voice, chat and email in 30+ languages, plus an Operations Hub for proactive network monitoring, OCPP log interpretation, anomaly detection and self-healing automations such as remote charger resets. The developer-facing surface is an embeddable Chat Widget - a lemonflow-chat web component (and an equivalent headless iframe) loaded from chat.lemonflow.ai and driven through a postMessage command/event API - together with a documented set of CPMS integration requirements covering bulk station data, real-time status, OCPP logs, remote actions and ticketing. Lemonflow is backed by Speedinvest.
 
-The developer-facing surface is the **Lemonflow Chat Widget** — a `lemonflow-chat`
-web component (or an equivalent headless iframe) loaded from `chat.lemonflow.ai` and
-driven through a `postMessage` command/event API — together with a documented set of
-CPMS integration requirements covering bulk station data, real-time status, OCPP logs,
-remote actions and ticketing.
+**Areas:** Company · Artificial Intelligence · AI Agents · Customer Service · EV Charging · E-Mobility · OCPP · Chat Widget · Voice · Europe
 
-- Website: https://lemonflow.ai
-- Documentation: https://lemonflow-ai.github.io/lemonflow-docs/
-- GitHub: https://github.com/lemonflow-ai
-- Status: https://status.lemonflow.ai
-- Trust Center: https://trust.lemonflow.ai
+## Lemonflow on APIs.io
 
-Backed by: Speedinvest
+Everything profiled for Lemonflow is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lemonflow-ai/](https://apis.io/providers/lemonflow-ai/)** — or go straight to one of the APIs or properties below.
 
-## Artifacts in this repo
+### APIs (1)
 
-| Directory | Artifact |
+- [Lemonflow Chat Widget](https://apis.io/apis/lemonflow-ai/chat-widget/) — Embeddable AI chat surface for EV charging driver support. Ships as a lemonflow-chat custom element loaded from a single script tag, or as a headless iframe…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Lemonflow Ai Authentication](https://apis.io/security/lemonflow-ai/lemonflow-ai-authentication/)
+- [Lemonflow Ai Domain Security](https://apis.io/security/lemonflow-ai/lemonflow-ai-domain-security/)
+- [Lemonflow Ai Trust Center](https://apis.io/security/lemonflow-ai/lemonflow-ai-trust-center/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://lemonflow-ai.github.io)
+- [Documentation](https://lemonflow-ai.github.io/lemonflow-docs/)
+- [Getting started](https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/widget-integration.html)
+- [API reference](https://lemonflow-ai.github.io/lemonflow-docs/protected/integration/integration-requirements.html)
+- [Sign up](https://lemonflow.ai/#request-demo)
+- [Terms of service](https://lemonflow.ai/terms)
+- [Privacy policy](https://lemonflow.ai/privacy)
+- [GitHub](https://github.com/lemonflow-ai)
+- [Status](https://status.lemonflow.ai)
+
+## API Evangelist rating
+
+**Kin Score 33.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
 |---|---|
-| `authentication/` | Company ID + public-key model for the widget; partner-side auth options |
-| `components/` | Chat Widget web component + headless iframe, attributes, events, a11y |
-| `conformance/` | OCPP 1.6/2.0.1, WCAG 2.1 AA, GDPR/EU hosting, ISO 27001 & SOC 2 alignment |
-| `conventions/` | postMessage envelopes, tracing, versioning, error envelope, latency budgets |
-| `data-model/` | Location → Station → EVSE → Connector → Session hierarchy + conversation entities |
-| `errors/` | Widget `chat:error` surface + documented HTTP semantics for partner endpoints |
-| `integrations/` | The five CPMS endpoints Lemonflow asks partners to expose, plus channels |
-| `lifecycle/` | incident.io status page, agent versioning, doc revision dates |
-| `llms/` | Verbatim `llms.txt` published at the apex host |
-| `packages/` | Registry sweep — no first-party client libraries published |
-| `security/` | Probed TLS/HSTS/DNSSEC/SPF/DMARC posture + Vanta Trust Center |
-| `well-known/` | `/.well-known/` sweep (all 404) + robots.txt Content-Signal directives |
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 54.8 |
+| Access clarity | 43.4 |
 
-## Notes
+**Agent readiness 5.4** — agent-aware
 
-- Lemonflow publishes **no OpenAPI definition** and no public REST API. The API guides
-  in its documentation describe the endpoints a **partner CPMS** should expose, not
-  Lemonflow's own. Artifacts here label that distinction explicitly.
-- The documentation portal is StatiCrypt password-gated in two tiers (Tech,
-  Operations); credentials come from `tech@lemonflow.ai`. The unencrypted sources are
-  public in `lemonflow-ai/lemonflow-docs`.
-- No MCP server, CLI, sandbox, OAuth scopes, AsyncAPI or published SDKs were found.
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 23.1** — Energy & Utilities
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lemonflow-ai/](https://apis.io/providers/lemonflow-ai/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Lemonflow: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lemonflow-ai/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
